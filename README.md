@@ -24,7 +24,7 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-Install the correct Django version:
+Install Django version used by the project:
 ```bash
 python -m pip install Django==6.1.2
 ```
