@@ -1,0 +1,1 @@
+#Here you will find more detailed information on the vulnerabilities
