@@ -16,13 +16,10 @@ def task_list(request):
 @login_required
 def user_task_list(request, user_id):
     list_owner = get_object_or_404(get_user_model(), pk=user_id)
-    # A01-harjoitus: user_id:tä ei verrata kirjautuneeseen käyttäjään.
-    # Toinen kirjautunut käyttäjä voi vaihtaa URL:n ID:n ja nähdä vieraan listan.
-    #
-    # Korjaus (ota käyttöön haavoittuvuuden esittelyn jälkeen):
-    # if user_id != request.user.pk:
-    #     raise Http404
-    #
+    #A01, Fix:
+    #if user_id != request.user.pk:
+    #    raise Http404
+
     tasks = Task.objects.filter(owner_id=user_id, completed=False).order_by("creation_time")
     return render(
         request,
@@ -56,7 +53,7 @@ def create_task(request):
 @require_POST
 def delete_task(request, task_id):
     task = get_object_or_404(Task, pk=task_id, owner=request.user)
-    # A09-harjoitusesimerkki: poistosta ei tallenneta erillistä audit-lokia.
+    # A09: Fix
     # logger.warning("Task deleted: task_id=%s actor=%s", task.pk, request.user.get_username())
     task.delete()
     return redirect("tasks:user_list", user_id=request.user.pk)
