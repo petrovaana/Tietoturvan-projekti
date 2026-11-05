@@ -41,6 +41,5 @@ urlpatterns = [
         ),
         name='register',
     ),
-    path('polls/', include("polls.urls")),
     path('tasks/', include('tasks.urls')),
 ]
