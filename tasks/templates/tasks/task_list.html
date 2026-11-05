@@ -1,0 +1,32 @@
+<h1>{{ list_owner.get_username }}'s To Do list</h1>
+
+<ul>
+  {% for task in tasks %}
+    <li>
+        {{ task.name }}
+        <form method="post" action="{% url 'tasks:delete' task.id %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" onclick="return confirm('Are you sure?');">Delete</button>
+        </form>
+    </li>
+  {% endfor %}
+</ul>
+
+<button type="button" id="open-create-task">Create a new task</button>
+
+<dialog id="create-task-dialog" data-open="{% if form.errors %}true{% else %}false{% endif %}">
+  <h2>Create a new task</h2>
+  <form method="post" action="{% url 'tasks:create' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+    <button type="button" id="cancel-create-task">Cancel</button>
+  </form>
+</dialog>
+
+<script>
+  const taskDialog = document.getElementById("create-task-dialog");
+  document.getElementById("open-create-task").addEventListener("click", () => taskDialog.showModal());
+  document.getElementById("cancel-create-task").addEventListener("click", () => taskDialog.close());
+  if (taskDialog.dataset.open === "true") taskDialog.showModal();
+</script>
