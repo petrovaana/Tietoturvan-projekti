@@ -13,7 +13,10 @@ In this case a user can view another user's task list by altering user_id in the
 In the file views.py the function user_task_list does not verify that the logged in user_id is the same as the user_id of the list. Additionally, the file contains a fix for A01, which checks that the IDs match. In case of modification of URL, the application raises Http404 issue, and block the exposure of another persons tasks. 
 
 ## A02 Security Misconfiguration
-DEBUG=True 
+
+Security misconfiguration is a vulnerability where a developer has configured the application poorly. It can show in many different ways such as unnecessary features being either installed or enabled or too specific error messages that give attackers too much information about the software. The code itself can be perfect yet with poor configuration, the application becomes vulnerable and gives an attacker a possibility to misuse the given information. For example the more unnecessary features are enabled, the larger the attack surface.
+
+In this application misconfiguration can be found in settings.py. Line 28 contains "DEBUG=True", which is usually used during development. The correct configuration would be "DEBUG=False" which hides the specifics of an error message. The pictures show a before and after a fix. The error message exploids applications Framework, a full URL map, a handling function and shows that a user with a user ID = 2 does not exist. An attacker gains a lot of information about the application and can use it for malicious intentions. Meanwhile the fixed configuration states that the requested resource was not found. This is an example of when an attacker changes the URL user_id to a non existing user_id.
 
 ## A09 Security Logging and Altering Failures
 
