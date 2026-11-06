@@ -20,7 +20,7 @@ def user_task_list(request, user_id):
     #if user_id != request.user.pk:
     #    raise Http404
 
-    tasks = Task.objects.filter(owner_id=user_id, completed=False).order_by("creation_time")
+    tasks = Task.objects.filter(owner_id=user_id)
     return render(
         request,
         "tasks/task_list.html",
@@ -33,10 +33,7 @@ def user_task_list(request, user_id):
 def create_task(request):
     form = TaskForm(request.POST)
     if not form.is_valid():
-        tasks = Task.objects.filter(
-            owner=request.user,
-            completed=False,
-        ).order_by("creation_time")
+        tasks = Task.objects.filter(owner=request.user)
         return render(
             request,
             "tasks/task_list.html",

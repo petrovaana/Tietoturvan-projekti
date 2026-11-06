@@ -7,7 +7,7 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ("name",)
-        labels = {"name": "Tehtävä"}
+        labels = {"name": "Task"}
         widgets = {
             "name": forms.TextInput(
                 attrs={"autofocus": True, "maxlength": Task._meta.get_field("name").max_length}
