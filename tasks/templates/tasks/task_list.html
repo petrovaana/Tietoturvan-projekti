@@ -24,6 +24,11 @@
   </form>
 </dialog>
 
+<form method="post" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit">Log out</button>
+</form>
+
 <script>
   const taskDialog = document.getElementById("create-task-dialog");
   document.getElementById("open-create-task").addEventListener("click", () => taskDialog.showModal());

@@ -42,4 +42,9 @@ urlpatterns = [
         name='register',
     ),
     path('tasks/', include('tasks.urls')),
+    path(
+        'accounts/logout/',
+        auth_views.LogoutView.as_view(next_page='login'),
+        name="logout"
+    ),
 ]
