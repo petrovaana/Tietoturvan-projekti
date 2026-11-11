@@ -18,7 +18,7 @@ Security misconfiguration is a vulnerability where a developer has configured th
 
 In this application misconfiguration can be found in settings.py. Line 28 contains "DEBUG=True", which is usually used during development. The correct configuration would be "DEBUG=False" which hides the specifics of an error message. The pictures show a before and after a fix. The error message exploids applications Framework, a full URL map, a handling function and shows that a user with a user ID = 2 does not exist. An attacker gains a lot of information about the application and can use it for malicious intentions. Meanwhile the fixed configuration states that the requested resource was not found. This is an example of when an attacker changes the URL user_id to a non existing user_id.
 
-## A09 Security Logging and Altering Failures
+## A09 Security Logging and Alerting Failures
 
 
 ## A07 Authentication Failures

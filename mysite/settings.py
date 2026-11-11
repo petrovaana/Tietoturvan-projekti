@@ -131,3 +131,20 @@ MAILERS = {
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'tasks:list'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'tasks': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}

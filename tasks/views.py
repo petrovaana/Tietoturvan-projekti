@@ -3,9 +3,12 @@ from django.contrib.auth import get_user_model
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
+# import logging #A09
 
 from .forms import TaskForm
 from .models import Task
+
+# logger = logging.getLogger(__name__) #A09
 
 
 @login_required
@@ -50,7 +53,7 @@ def create_task(request):
 @require_POST
 def delete_task(request, task_id):
     task = get_object_or_404(Task, pk=task_id, owner=request.user)
-    # A09: Fix
-    # logger.warning("Task deleted: task_id=%s actor=%s", task.pk, request.user.get_username())
+    # A09 Fix:
+    # logger.info("Task deleted: task_id=%s actor_id=%s", task.pk, request.user.pk)
     task.delete()
     return redirect("tasks:user_list", user_id=request.user.pk)
