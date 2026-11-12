@@ -35,14 +35,15 @@ def user_task_list(request, user_id):
 @require_POST
 def create_task(request):
     form = TaskForm(request.POST)
-    if not form.is_valid():
-        tasks = Task.objects.filter(owner=request.user)
-        return render(
-            request,
-            "tasks/task_list.html",
-            {"tasks": tasks, "form": form, "list_owner": request.user},
-            status=400,
-        )
+    # A10 Fix:
+    #if not form.is_valid():
+    #    tasks = Task.objects.filter(owner=request.user)
+    #    return render(
+    #        request,
+    #        "tasks/task_list.html",
+    #        {"tasks": tasks, "form": form, "list_owner": request.user},
+    #        status=400,
+    #    )
     task = form.save(commit=False)
     task.owner = request.user
     task.save()

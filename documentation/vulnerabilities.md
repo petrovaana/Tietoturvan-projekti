@@ -22,6 +22,6 @@ In this application misconfiguration can be found in settings.py. Line 28 contai
 
 
 ## A07 Authentication Failures
+- Rajattomat epäonnistuneet kirjautumisyritykset
 
-
-## A10 Mishandling of Exceptional Conditions or A05 Injection
+## A10 Mishandling of Exceptional Conditions

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 import os
 from pathlib import Path
+#from datetime import timedelta #A07
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,8 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tasks.apps.TasksConfig'
+    'tasks.apps.TasksConfig',
+    #'axes', #A07
 ]
+
+#A07
+#AUTHENTICATION_BACKENDS = [
+#    "axes.backends.AxesStandaloneBackend",
+#    "django.contrib.auth.backends.ModelBackend",
+#]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,7 +58,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'axes.middleware.AxesMiddleware', #A07
 ]
+
+#A07
+#AXES_FAILURE_LIMIT = 3
+#AXES_COOLOFF_TIME = timedelta(minutes=5) 
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -132,19 +145,21 @@ MAILERS = {
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'tasks:list'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'tasks': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-    },
-}
+
+#A09: Fix
+#LOGGING = {
+#    'version': 1,
+#    'disable_existing_loggers': False,
+#    'handlers': {
+#        'console': {
+#            'class': 'logging.StreamHandler',
+#        },
+#    },
+#    'loggers': {
+#        'tasks': {
+#            'handlers': ['console'],
+#            'level': 'INFO',
+#            'propagate': False,
+#        },
+#    },
+#}
