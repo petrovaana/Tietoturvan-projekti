@@ -25,3 +25,5 @@ In this application misconfiguration can be found in settings.py. Line 28 contai
 - Rajattomat epäonnistuneet kirjautumisyritykset
 
 ## A10 Mishandling of Exceptional Conditions
+- Haavoittuvuus on virheellisen syötteen käsittelemätön palvelinvirhe A10
+- Kuvissa kun kirjotetaan 3 välilyöntiä niin aluks se hyväksyy sen syötteen ja yrittää lähettää ja sit korjatus se ei ees yritä lähettää sitä. Tulee tollanen tarkempi selitys, koska edelleen DEBUG mode päällä (aikasempi virhe). Mut siit näkyy just hyvin et mikä on ongelma käytännös.
