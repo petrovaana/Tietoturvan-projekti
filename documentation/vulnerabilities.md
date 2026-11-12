@@ -22,7 +22,11 @@ In this application misconfiguration can be found in settings.py. Line 28 contai
 
 
 ## A07 Authentication Failures
+Selitän vielä tähän haavoittuvuudesta yleisesti.
 - Rajattomat epäonnistuneet kirjautumisyritykset
+
+In this project A07 comes accross as a unlimited amounts of times to log in. So an attacker can try and log in as many times as he wants without any concequences. The photo before shows that it just informs the user about a wrong password or username. When fixed, the user can try 3 times to log in. If the user still gets the log in information wrong on the third time, the application locks the user out for 5 minutes, so that the user cannot try again. 
+- Django-axes = Django kirjasto joka seuraa epäonnistuneita kirjautumisyrityksiä ja lukitsee kirjautumisen, kun niitä tulee liikaa. 
 
 ## A10 Mishandling of Exceptional Conditions
 - Haavoittuvuus on virheellisen syötteen käsittelemätön palvelinvirhe A10
