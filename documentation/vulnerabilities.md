@@ -14,9 +14,9 @@ In the file views.py the function user_task_list does not verify that the logged
 
 ## A02 Security Misconfiguration
 
-Security misconfiguration is a vulnerability where a developer has configured the application poorly. It can show in many different ways such as unnecessary features being either installed or enabled or too specific error messages that give attackers too much information about the software. The code itself can be perfect yet with poor configuration, the application becomes vulnerable and gives an attacker a possibility to misuse the given information. For example the more unnecessary features are enabled, the larger the attack surface.
+Security misconfiguration is a vulnerability where a developer has configured the application poorly. It can show in many different ways such as unnecessary features being either installed or enabled or too specific error messages that give attackers too much information about the software. The code itself can be perfect yet with poor configuration, the application becomes vulnerable and gives an attacker a possibility to misuse the given information. For example, the more unnecessary features are enabled, the larger the attack surface.
 
-In this application misconfiguration can be found in settings.py. Line 28 contains "DEBUG=True", which is usually used during development. The correct configuration would be "DEBUG=False" which hides the specifics of an error message. The pictures show a before and after a fix. The error message exploids applications Framework, a full URL map, a handling function and shows that a user with a user ID = 2 does not exist. An attacker gains a lot of information about the application and can use it for malicious intentions. Meanwhile the fixed configuration states that the requested resource was not found. This is an example of when an attacker changes the URL user_id to a non existing user_id.
+In this application misconfiguration can be found in settings.py. Line 28 contains "DEBUG=True", which is usually used during development. The correct configuration would be "DEBUG=False", which hides the specifics of an error message. The pictures show a before and after a fix (flaw-A02). The error message exploids applications Framework, a full URL map, a handling function and shows that a user with a user ID = 2 does not exist. An attacker gains a lot of information about the application, and can use it for malicious intentions. Meanwhile, the fixed configuration states that the requested resource was not found. This is an example of when an attacker changes the URL user_id to a non existing user_id.
 
 ## A09 Security Logging and Alerting Failures
 
@@ -29,5 +29,11 @@ In this project A07 comes accross as a unlimited amounts of times to log in. So 
 - Django-axes = Django kirjasto joka seuraa epäonnistuneita kirjautumisyrityksiä ja lukitsee kirjautumisen, kun niitä tulee liikaa. 
 
 ## A10 Mishandling of Exceptional Conditions
-- Haavoittuvuus on virheellisen syötteen käsittelemätön palvelinvirhe A10
-- Kuvissa kun kirjotetaan 3 välilyöntiä niin aluks se hyväksyy sen syötteen ja yrittää lähettää ja sit korjatus se ei ees yritä lähettää sitä. Tulee tollanen tarkempi selitys, koska edelleen DEBUG mode päällä (aikasempi virhe). Mut siit näkyy just hyvin et mikä on ongelma käytännös.
+
+Mishandling of exceptional conditions is a vulnerability where the application does not know how to handle unexpected situations, such as invalid input. This can lead to the application crashing, revealing internal information or behaving unpredictably in general.
+
+In the file views.py, the function create_task does not call form.is_valid() before saving the task. The method from.is_valid() checks that all of the submitted data is valid before the form is saved. In the figure flaw-A10-before, the task name field contains 3 spaces. Django strips spaces from the beginning and the end, leaving the field empty and the form invalid. However, the application attempts to save the data anyway and crashes with a ValueError. Since DEBUG is enabled, the error reveals details, such as server file paths. This is shown in the figure flaw-A10-before.
+
+How to fix it?
+
+The file views.py contains a commented-out fix for the vulnerability. The fix checks the form with form.is_valid() before saving it. In case of the input being invalid, the application informs the user with an error message and does not try to save the invalid input. Most importantly, the application does not crash anymore, but returns a HTTP 400 response instead.
