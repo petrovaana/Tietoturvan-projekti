@@ -4,13 +4,13 @@ The project contains 5 vulnerabilities from the 2025 OWASP list.
 
 ## A01 Broken Access Control
 
-Access control keeps track of users acting within their rights. The system monitors what users are allowed to do and what data they are allowed to view and/or edit. The system might contain admins and regular users, and both have different rights.
+Broken access control is a vulnerability where, for example, a user can view or modify data that should not be accessible to them. Most commonly attakcers can get around its rights by modifying the URL or the HTML page. Developers may also forget to secure all of HTTP methods (such as DELETE and POST) and secure only GET method, which could let the attacker modify or delete data without proper authorization.
 
-Broken access control is a vulnerability where for example a user can view or modify data that should not be accessible for the specific user. Most commonly an attakcer can get around it's rights through modifying the URL or the HTML-page. In addition, commonly a developer might forget to secure all of HTTP-methods (DELETE/POST), and secure only the GET -method. Then an attacker is able to delete data without even logging in. 
+In this application, a logged-in-user can view another user's to-do list by altering the user_id in the URL, for example from /tasks/users/4/ to /tasks/users/3/. An attacker can view the name of who the list belongs to as well as the tasks on the list, as shown in the picture flaw-A01-before.
 
-In this case a user can view another user's task list by altering user_id in the URL. For example from: /tasks/users/1/ to: /tasks/users/2/. An attacker can view the name of who the list belongs to as well as the tasks on the list, as shown in the picture. As mentioned, this is one of the most common mistakes a developer can make.
+How to fix it? 
 
-In the file views.py the function user_task_list does not verify that the logged in user_id is the same as the user_id of the list. Additionally, the file contains a fix for A01, which checks that the IDs match. In case of modification of URL, the application raises Http404 issue, and block the exposure of another persons tasks. 
+In the file views.py the function user_task_list does not verify that the logged in user_id is the same as the owner's user_id of the list. Additionally, the file contains a fix for A01, which checks that the IDs match. The function receives user_id as a parameter from the URL and compares it with request.user.pk, which is the ID of the currently logged-in user. If the IDs do not match, the application raises Http404 issue, and blocks the exposure of another persons tasks.
 
 ## A02 Security Misconfiguration
 
