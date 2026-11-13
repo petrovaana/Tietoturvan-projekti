@@ -1,6 +1,6 @@
 # Here are the projects vulnerabilities explained
 
-The project contains 5 vulnerabilities from the 2025 OWASP list.
+The project contains 5 vulnerabilities from the 2025 OWASP list. All of the figures can be found in the screenshots directory.
 
 ## A01 Broken Access Control
 
@@ -22,11 +22,12 @@ In this application misconfiguration can be found in settings.py. Line 28 contai
 
 
 ## A07 Authentication Failures
-Selitän vielä tähän haavoittuvuudesta yleisesti.
-- Rajattomat epäonnistuneet kirjautumisyritykset
 
-In this project A07 comes accross as a unlimited amounts of times to log in. So an attacker can try and log in as many times as he wants without any concequences. The photo before shows that it just informs the user about a wrong password or username. When fixed, the user can try 3 times to log in. If the user still gets the log in information wrong on the third time, the application locks the user out for 5 minutes, so that the user cannot try again. 
-- Django-axes = Django kirjasto joka seuraa epäonnistuneita kirjautumisyrityksiä ja lukitsee kirjautumisen, kun niitä tulee liikaa. 
+This is a vulnerability where an attacker can pretend to be another user. The application allows unlimited attempts to log in. If an attacker tries to log in several times, the application just informs them that the username or password is incorrect. This is shown in a figure flaw-A07-before. An attacker can try thousands of different passwords within seconds with a script, or use leaked information (usernames and their passwords). Eventually, an attacker may log into another users account. 
+
+How to fix it?
+
+The file settings.py contains a fix for the vulnerability. It uses axes-library, and the axes is added to INSTALLED_APPS and MIDDLEWARE. In addition, the AUTHENTICATION_BACKENDS contains 'axes.backends.AxesStandaloneBackend' to check that the user is not locked out before the password is verified. The file settings.py also contains 'AXES_FAILURE_LIMIT = 3' and 'AXES_COOLOFF_TIME = timedelta(minutes=5)' which work as rules in the application. A user can try to log in 3 times. If the password is still incorrect on a third try, the application block the user from trying to log in for 5 minutes. The figure flaw-A07-after contains an image of what it looks like for a user after 3 attempts to log in.
 
 ## A10 Mishandling of Exceptional Conditions
 
