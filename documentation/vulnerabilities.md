@@ -36,7 +36,7 @@ The vulnerability occurs when tha application does not log important security ev
 
 How to fix it?
 
-The [figure]("flaw-A09-after.png") shows that after fixing the vulnerability, the loki contains a new row with task_id and actor_id showing that user 3 deleted a task 4. The vulnerability can be found in the files views.py and settings.py. In the file views.py function delete_task does not log anything, and the fix contains a piece of code which 
+The [figure]("screenshots/flaw-A09-after.png") shows that after fixing the vulnerability, the loki contains a new row with task_id and actor_id showing that user 3 deleted a task 4. The vulnerability can be found in the files views.py and settings.py. In the file views.py function delete_task does not log anything, and the fix contains a piece of code which 
 
 ## A10 Mishandling of Exceptional Conditions
 
