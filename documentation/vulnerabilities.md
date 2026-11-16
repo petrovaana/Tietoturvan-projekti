@@ -1,7 +1,3 @@
-# Installation instructions
-
-
-
 # Here are the projects vulnerabilities explained
 
 The project contains 5 vulnerabilities from the 2025 OWASP list. All of the figures can be found in the screenshots directory.
