@@ -32,11 +32,11 @@ The file settings.py contains a fix for the vulnerability. It uses axes-library,
 
 ## A09 Security Logging and Alerting Failures
 
-The vulnerability occurs when tha application does not log important security events, such as failed log ins. Without logging an attack is completely undetectable. In this application the vulnerability occurs when a user deletes a task. From figure flaw-A09-before can be seen that palvelin makes a usual log ""POST /tasks/2/delete/ HTTP/1.1" 302 0". It does not show who deleted the task and if the request was accepted. The vulnerability itself is not visible for the user. It can only be seen from palvelimen loki. Even though it is not visible for the user, this still is a vulnerability because deleting a task is a data altering event that should be traceable. 
+The vulnerability occurs when an application does not log important security events, such as deleted data or failed logins. Without logging, an attack can be undetectable. In this application, the vulnerability occurs when a user deletes a task. Figure flaw-A09-before shows that the server only makes a standard log ""POST /tasks/2/delete/ HTTP/1.1" 302 0", and does not show who deleted the task. The vulnerability is not visible to the user and can only be seen in the server's log. This is a vulnerability because deleting a task is a data altering event that should be traceable. 
 
 How to fix it?
 
-The [figure](screenshots/flaw-A09-after.png) shows that after fixing the vulnerability, the loki contains a new row with task_id and actor_id showing that user 3 deleted a task 4. The vulnerability can be found in the files views.py and settings.py. In the file views.py function delete_task does not log anything, and the fix contains a piece of code which 
+The figure flaw-A09-after shows that after fixing the vulnerability, the log contains a new row with task_id and actor_id showing that user 3 deleted a task 4. The vulnerability and it's fix can be found in the files views.py and settings.py. In the file views.py function delete_task does not log anything. The fix imports logging, creates a logbook, and logger.info(...) writes the information about user and which task did user delete. The file settings.py contains a LOGGING block that tells Django where the message needs to be written. 
 
 ## A10 Mishandling of Exceptional Conditions
 
